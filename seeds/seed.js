@@ -1,5 +1,5 @@
 const sequelize = require('../config/connection');
-const { User } = require('../models');
+const { User,Post } = require('../models');
 
 const userData = [
   {
@@ -9,11 +9,18 @@ const userData = [
   }
 ];
 
+const postData= [{
+  title:"aaa",
+  content:"bbb",
+  user_id:"1"
+}]
+
 async function runseed() {
   await sequelize.sync({force:true});
   await User.bulkCreate(userData,{
     individualHooks:true
   });
+  await Post.bulkCreate(postData);
 }
 
 runseed();
