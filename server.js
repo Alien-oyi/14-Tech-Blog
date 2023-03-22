@@ -1,10 +1,11 @@
 const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
+// const routes = require('express').Router();
 
-const routes = require('./controllers/home-routes');
+const routes = require('./controllers/homeRoutes');
 const sequelize = require('./config/connection');
-const helpers = require('./utils/helper');
+const helpers = require('./utils/helpers');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
