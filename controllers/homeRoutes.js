@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 const {User,Post} = require('../models');
 const  withAuth  = require("../utils/withAuth") 
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
       attributes: ['id', 'title', 'content', 'created_at'],
