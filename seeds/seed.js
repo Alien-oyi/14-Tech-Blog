@@ -17,8 +17,12 @@ const postData= [{
 
 async function runseed() {
   await sequelize.sync({force:true});
-  await User.bulkCreate(userData);
+  await User.bulkCreate(userData, {
+    individualHooks: true,
+    returning: true,
+  });
   await Post.bulkCreate(postData);
+  process.exit(0)
 }
 
 runseed();
