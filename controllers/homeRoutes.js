@@ -17,7 +17,6 @@ router.get('/',withAuth, async (req, res) => {
     });
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
-    console.log(posts);
     res.render("home", {
       posts
       
@@ -52,4 +51,30 @@ router.get("/post/:id", async (req, res) => {
   });
   res.json(posts);
 });
+
+router.get("/Dashboard", withAuth, async (req, res) => {
+  try {
+    const userblog = await Post.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
+    userblogs = userblog.map((post) => post.get({ plain: true }));
+     console.log(userblogs);
+      res.render("dash", {
+      userblogs,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch(err) {
+   console.log(err);
+    res.status(500).json(err);
+  }
+}
+)
 module.exports = router;

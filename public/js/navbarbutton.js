@@ -5,3 +5,11 @@ document.querySelector("#login").addEventListener("click", () => {
 document.querySelector("#signup").addEventListener("click", () => {
   document.location.replace("/signup");
 });
+
+document.querySelector("#Dashboard").addEventListener("click",() => {
+  document.location.replace("/Dashboard")
+})
+
+document.querySelector("#home").addEventListener("click",()=> {
+  document.location.replace("/")
+})
