@@ -13,3 +13,7 @@ document.querySelector("#Dashboard").addEventListener("click",() => {
 document.querySelector("#home").addEventListener("click",()=> {
   document.location.replace("/")
 })
+
+document.querySelector("#Mpost").addEventListener("click",()=> {
+  document.location.replace("/post")
+})

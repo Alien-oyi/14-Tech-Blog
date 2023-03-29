@@ -75,6 +75,25 @@ router.get("/Dashboard", withAuth, async (req, res) => {
    console.log(err);
     res.status(500).json(err);
   }
-}
-)
+})
+
+router.post("/", withAuth, async (req, res) => {
+  try {
+    const dbBlogData = await Post.create({
+      title: req.body.title,
+      content: req.body.content,
+      user_id: req.session.user_id,
+    });
+    res.status(200).json(dbBlogData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.get("/post", withAuth, async (req, res) => {
+ 
+  res.render("post");
+
+});
 module.exports = router;
