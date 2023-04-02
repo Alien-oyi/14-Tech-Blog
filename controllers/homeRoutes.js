@@ -77,7 +77,7 @@ router.get("/Dashboard", withAuth, async (req, res) => {
   }
 })
 
-router.post("/", withAuth, async (req, res) => {
+router.post("/post", withAuth, async (req, res) => {
   try {
     const dbBlogData = await Post.create({
       title: req.body.title,
@@ -96,4 +96,34 @@ router.get("/post", withAuth, async (req, res) => {
   res.render("post");
 
 });
+
+//  DELETE (/post/:id)
+router.delete("/post/:id", async (req, res) => {
+  // Finds one post
+  const post = await Post.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  // If no post with that id exists, send 404 page
+  if (!post) {
+    res.render("404");
+    return;
+  } else {
+    // If user id does not match the session user id, send 404 page
+    if (post.user_id !== req.session.user_id) {
+      res.render("404");
+      return;
+    } else {
+      // Deletes the post based on its id
+      const del = await Post.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).json(del);
+    }
+  }
+});
+
 module.exports = router;
