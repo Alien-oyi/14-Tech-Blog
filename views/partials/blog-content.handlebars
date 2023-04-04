@@ -1,14 +1,16 @@
-<div class="card">
-  <div class="card-body">
-    <div>
-    <h3 class="card-title">{{title}}</h3>
-    <p class="card-text">{{content}}</p>
-    <div>Post By: {{user.username}} On {{format_date created_at}}</div>
+<div class="container">
+  <div class="card" style="width:100%"> 
+    <div class="card-body">
+      <h3 class="card-title title" name="post-title">{{title}}</h3>
+      <div class="card-title">Post By: {{user.username}} On {{format_date created_at}}</div>
+      <p class="card-text content" name="post-content">{{content}}</p>
+    </div>
+    <div class="card-footer align-content-center">
+      <button type="button" class="btn btn-success edit-btn" data-editid="{{id}}">Edit Post</button>
+      <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-postid="{{id}}">Delete Post</button>
     </div>
   </div>
 </div>
-<div class="card-footer" id="cardfooter">
-  <button type="button" class="btn btn-success" onclick="window.location.href='/post/{{id}}/edit'" >Edit Blog</button>
-  <button type="button" class="btn btn-success del-btn"  data-blogId={{id}}>Delete Blog</button>
-</div>
-<script src="/js/updatapost.js"></script>
+
+
+

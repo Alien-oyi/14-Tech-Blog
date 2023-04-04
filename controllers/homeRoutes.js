@@ -52,7 +52,7 @@ router.get("/post/:id", async (req, res) => {
   res.json(posts);
 });
 
-router.get("/Dashboard", withAuth, async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const userblog = await Post.findAll({
       where: {
@@ -91,14 +91,14 @@ router.post("/post", withAuth, async (req, res) => {
   }
 });
 
-router.get("/post", withAuth, async (req, res) => {
+router.get('/post', withAuth, async (req, res) => {
  
   res.render("post");
 
 });
 
 //  DELETE (/post/:id)
-router.delete("/post/:id", async (req, res) => {
+router.delete('/post/:id',withAuth, async (req, res) => {
   // Finds one post
   const post = await Post.findOne({
     where: {
@@ -116,14 +116,39 @@ router.delete("/post/:id", async (req, res) => {
       return;
     } else {
       // Deletes the post based on its id
-      const del = await Post.destroy({
+      const delPost = await Post.destroy({
         where: {
           id: req.params.id,
         },
       });
-      res.status(200).json(del);
+      res.status(200).json(delPost);
     }
   }
 });
+
+router.get('/edit/:id', withAuth, async (req, res) => {
+  const post = await Post.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  if (!post) {
+    res.render("404");
+    return;
+  } else {
+    if (post.user_id !== req.session.user_id) {
+      res.render("404");
+      return;
+    } else {
+      const editPost = await Post.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).json(editPost);
+    }
+  }
+});
+
 
 module.exports = router;

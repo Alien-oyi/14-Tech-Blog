@@ -162,3 +162,11 @@ img {
   align-content: flex-start;
   align-items: center;
 }
+
+#postbody {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+

@@ -6,8 +6,8 @@ document.querySelector("#signup").addEventListener("click", () => {
   document.location.replace("/signup");
 });
 
-document.querySelector("#Dashboard").addEventListener("click",() => {
-  document.location.replace("/Dashboard")
+document.querySelector("#dashboard").addEventListener("click",() => {
+  document.location.replace("/dashboard")
 })
 
 document.querySelector("#home").addEventListener("click",()=> {
